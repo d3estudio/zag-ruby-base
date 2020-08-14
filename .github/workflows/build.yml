@@ -1,0 +1,20 @@
+on:
+  push:
+    branches:
+      [ master, main ]
+
+name: Publish Docker
+
+jobs:
+  build:
+    runs-on: ubuntu-latest
+    steps:
+    - uses: actions/checkout@master
+    - name: Publish to Registry
+      uses: elgohr/Publish-Docker-Github-Action@master
+      with:
+        name: d3estudio/zag-ruby-base
+        username: ${{ secrets.DOCKER_USERNAME }}
+        password: ${{ secrets.DOCKER_PASSWORD }}
+        dockerfile: Dockerfile
+        tags: "2.6.6, ${{ github.sha }}"

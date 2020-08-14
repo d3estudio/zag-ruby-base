@@ -2,6 +2,8 @@ FROM ubuntu
 
 #ADD file:feb9fd29475961253e3449db036bbf56bf6f4d02f2df1202209e393a9e7e95f5 in /
 CMD ["bash"]
+ENV TZ=Etc/UTC
+RUN ln -snf /usr/share/zoneinfo/$TZ /etc/localtime && echo $TZ > /etc/timezone
 RUN apt-get update \
     && apt-get install -y --no-install-recommends 		ca-certificates 		curl 		netbase 		wget 	\
     && rm -rf /var/lib/apt/lists/*
@@ -13,8 +15,8 @@ RUN set -ex; 	apt-get update; 	apt-get install -y --no-install-recommends 		auto
 RUN mkdir -p /usr/local/etc 	\
     && { 		echo 'install: --no-document'; 		echo 'update: --no-document'; 	} >> /usr/local/etc/gemrc
 ENV RUBY_MAJOR=2.6
-ENV RUBY_VERSION=2.6.5
-ENV RUBY_DOWNLOAD_SHA256=d5d6da717fd48524596f9b78ac5a2eeb9691753da5c06923a6c31190abe01a62
+ENV RUBY_VERSION=2.6.6
+ENV RUBY_DOWNLOAD_SHA256=5db187882b7ac34016cd48d7032e197f07e4968f406b0690e20193b9b424841f
 RUN set -ex 		\
     && buildDeps=' 		bison 		dpkg-dev 		libgdbm-dev 		ruby 	' 	\
     && apt-get update 	\
